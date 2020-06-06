@@ -21,8 +21,9 @@ class App extends Component{
 	}
 
 	componentDidMount(){
-		fetch("https://jsonplaceholder.typicode.com/users").then(response => response.json())
-		.then(users => this.setState({ robots: users }));
+		fetch("https://jsonplaceholder.typicode.com/users") // Get the JSON object 
+		.then(response => response.json())					//Parse the JSON
+		.then(users => this.setState({ robots: users }));	//Set the State
 	}
 
 	onSearchChange = (event) => {
@@ -34,7 +35,7 @@ class App extends Component{
 		const filteredRobots = robots.filter(robot => {
 			return robot.name.toLowerCase().includes(searchfield.toLowerCase());
 		})
-		return !robots.length?<h1> Loading 😔😔😔 </h1>:
+		return !robots.length?<h1 className = 'tc f1'> Loading 😔😔😔 </h1>:
 			(
 			<div className = 'tc'>
 				<h1> Robofriends </h1>
