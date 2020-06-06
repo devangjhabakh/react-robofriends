@@ -5,6 +5,7 @@ import 'tachyons';
 import SearchBox from '../Components/SearchBox';
 import './App.css'
 import Scroll from '../Scroll'
+import ErrorBoundary from '../Components/ErrorBoundary';
 
 //A parent can pass around the STATE of its children, among its children.
 //State can cause changes to our app. State usually lives in the parent component.
@@ -33,20 +34,19 @@ class App extends Component{
 		const filteredRobots = robots.filter(robot => {
 			return robot.name.toLowerCase().includes(searchfield.toLowerCase());
 		})
-		if(robots.length === 0){
-			return <h1> Loading 😷😷😷 </h1>
-		}
-		else{
-			return(
-				<div className = 'tc'>
-					<h1> Robofriends </h1>
-					<SearchBox searchChange = {this.onSearchChange}/>
-					<Scroll>
+		return !robots.length?<h1> Loading 😔😔😔 </h1>:
+			(
+			<div className = 'tc'>
+				<h1> Robofriends </h1>
+				<SearchBox searchChange = {this.onSearchChange}/>
+				<Scroll>
+					<ErrorBoundary>
 						<CardList robots={filteredRobots}/>
-					</Scroll>
-				</div>
-				);
-		}
+					</ErrorBoundary>
+				</Scroll>
+			</div>
+			);
+		
 		
 	}
 }
